@@ -12,6 +12,7 @@ app.use(cookie());
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes)
 
 
 app.listen(Port, () => {
