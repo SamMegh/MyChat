@@ -4,3 +4,5 @@ import { protect } from '../middlelayer/midway.middlelayer.js';
 const router = express.Router();
 
 router.get("/users",protect , getusers);
+router.get("/:id",protect , getmessages);
+
