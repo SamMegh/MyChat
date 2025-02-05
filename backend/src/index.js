@@ -4,6 +4,7 @@ import cookie from 'cookie-parser';
 
 import {connect} from './lib/connect.db.js';
 import authRoutes from "./route/auth.routes.js";
+import messageRoutes from "./route/message.routes.js";
 const app = express();
 dotenv.config();
 const Port= process.env.Port;

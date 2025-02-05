@@ -6,3 +6,5 @@ const router = express.Router();
 router.get("/users",protect , getusers);
 router.get("/:id",protect , getmessages);
 router.post("/send/:id",protect , sendmessage);
+
+export default router;
