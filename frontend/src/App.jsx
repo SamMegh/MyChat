@@ -9,6 +9,7 @@ import Profile from './pages/Profile'
 import {checkAuthStore} from './files/checkAuthFile'
 import { useEffect } from 'react'
 import { Loader } from 'lucide-react'
+import { Toaster} from "react-hot-toast"
 function App() {
   const {isAuth, checkauth, ischeckauth} = checkAuthStore();
   useEffect(() => {
@@ -32,7 +33,7 @@ if(!ischeckauth&& !isAuth)return(
   <Route path="/profile" element={isAuth?<Profile />:<Navigate to="/login"/>} />
 </Routes>
     </div>
-      
+      <Toaster/>
     </>
   )
 }
