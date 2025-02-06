@@ -16,6 +16,8 @@ function Login() {
     const {isLogin, login} = checkAuthStore();
     function handleChange(e) {
       e.preventDefault();
+      login(formData);
+      console.log(formData);
     }
   return (
     <div className="max-h-screen ">

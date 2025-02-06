@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import Instance from '../lib/axios';
+import toast from 'react-hot-toast';
 export const checkAuthStore = create((set) => ({
     isAuth: null,
     isSignup:false,
@@ -17,7 +18,5 @@ export const checkAuthStore = create((set) => ({
             set({isCheckauth:false});
         }
     },
-    signup: async (data) => {},
-    logout: async () => {},
-    login: async (data) => {},
+  
 }));
