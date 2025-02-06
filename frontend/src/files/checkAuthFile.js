@@ -18,5 +18,44 @@ export const checkAuthStore = create((set) => ({
             set({isCheckauth:false});
         }
     },
-  
+    signup: async (data) => {
+        set({isSignup:true});
+        try {
+            const res = await Instance.post('/auth/signup', data);
+            set ({isAuth: res.data});
+            if(isAuth) {
+                toast.success('Signup Success');
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }finally {
+            set({isSignup:false});
+        }
+    },
+    logout: async () => {
+        try {
+            const res = await Instance.get('/auth/logout');
+            set({isAuth: false});
+            if(!isAuth){
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    },
+
+    login: async (data) => {
+        set({isLogin:true});
+        try {
+            const res= await Instance.post('/auth/login', data);
+            set ({isAuth: res.data});
+            if(isAuth) {
+                toast.success('Login Success');
+            }
+        } catch (error) {
+        toast.error(error.response.data.message);
+        } finally {
+            set({isLogin:false});
+        }
+    },
 }));
