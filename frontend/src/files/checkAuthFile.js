@@ -18,4 +18,6 @@ export const checkAuthStore = create((set) => ({
         }
     },
     signup: async (data) => {},
+    logout: async () => {},
+    login: async (data) => {},
 }));
