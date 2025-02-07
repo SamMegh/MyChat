@@ -6,8 +6,10 @@ export const checkAuthStore = create((set) => ({
     isSignup:false,
     isLogin:false,
     isUpdateprfile:false,
-    ischeckauth:true,
+    ischeckauth:false,
+
     checkauth: async () => {
+        set({isCheckauth:true});
         try {
             const res = await Instance.get('/auth/check');
             set ({isAuth: res.data});
@@ -18,6 +20,7 @@ export const checkAuthStore = create((set) => ({
             set({isCheckauth:false});
         }
     },
+
     signup: async (data) => {
         set({isSignup:true});
         try {
@@ -32,6 +35,7 @@ export const checkAuthStore = create((set) => ({
             set({isSignup:false});
         }
     },
+
     logout: async () => {
         try {
             const res = await Instance.get('/auth/logout');
@@ -58,4 +62,19 @@ export const checkAuthStore = create((set) => ({
             set({isLogin:false});
         }
     },
+
+    updateprofile: async (data)=>{
+        set({isUpdateprfile:true});
+        try {
+            const res = await Instance.put('/auth/update', data);
+            set({isAuth: res.data});
+            if(isAuth) {
+                toast.success('Profile Updated');
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }finally {
+            set({isUpdateprfile:false});
+        }
+    }
 }));
