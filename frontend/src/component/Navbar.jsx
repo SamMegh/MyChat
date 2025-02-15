@@ -1,10 +1,10 @@
 import React from 'react'
 import logo from '../pages/logoimg/sam.jpg';
-import { Settings,LogOut ,UserRoundPen } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import {checkAuthStore} from '../files/checkAuthFile';
 import { Link ,useNavigate } from 'react-router-dom';
 function Navbar() {
-  const {logout,isAuth} = checkAuthStore();
+  const {isAuth} = checkAuthStore();
   const navigate = useNavigate();
   return (
     <div>
@@ -26,18 +26,8 @@ function Navbar() {
       </Link>
 {isAuth&& (
   <>
-      <Link to='/profile' className='btn btn-sm pt-0.5 pr-3 pl-3 pb-0.5 flex justify-center items-center rounded-xl'>
-      <button className='text-[15px] flex gap-1 cursor-pointer'>
-    <UserRoundPen  size={18} className='mt-0.5' />
-    <span className='hidden sm:inline'>Profile</span>
-      </button>
-      </Link>
-      <button onClick={logout} className='btn btn-sm pt-0.5 pr-3 pl-3 pb-0.5 flex justify-center items-center rounded-xl cursor-pointer transition duration-300 bg-[#ff838366] hover:bg-[#ff00007d]'>
-    <LogOut size={18} />
-    <span className='hidden sm:inline'>Logout</span>
-      </button>
-      <div className="cursor-default overflow-hidden rounded-[14px] scale-130" onClick={() => navigate('/')}>
-                  <img src={isAuth.profileimage} alt="Profile Logo" className="size-7 scale-130" />
+      <div className="cursor-default overflow-hidden rounded-[50%] scale-120 border-1 p-[3px]" onClick={() => navigate('/profile')}>
+                  <img src={isAuth.profileimage|| logo} alt="Profile Logo" className="size-6 scale-110 rounded-[50%] scale" />
        </div>
 </>)
 }

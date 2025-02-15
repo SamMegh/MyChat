@@ -2,9 +2,10 @@ import { Camera, Mail, User } from 'lucide-react';
 import React from 'react'
 import { checkAuthStore } from '../files/checkAuthFile';
 import logo from './logoimg/sam.jpg';
+import { LogOut } from 'lucide-react';
 
 function Profile() {
- const {isAuth, isUpdateprfile,updateprofile}=checkAuthStore();
+ const {isAuth, isUpdateprfile,updateprofile,logout}=checkAuthStore();
  const [selectedimg, setSelectedImg] = React.useState(null);
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -91,6 +92,13 @@ function Profile() {
               <div className="flex items-center justify-between py-2">
                 <span>Account Status</span>
                 <span className="text-green-500">Active</span>
+              </div>
+              <div className='w-full flex justify-end'>
+
+              <button onClick={logout} className='btn btn-sm pt-0.5 pr-3 pl-3 pb-0.5 flex justify-center items-center rounded-xl cursor-pointer transition duration-300 bg-[#ff838366] hover:bg-[#ff00007d]'>
+    <LogOut size={18} />
+    <span className='hidden sm:inline'>Logout</span>
+      </button>
               </div>
             </div>
           </div>
