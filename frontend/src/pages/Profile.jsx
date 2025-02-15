@@ -1,7 +1,7 @@
 import { Camera, Mail, User } from 'lucide-react';
 import React from 'react'
 import { checkAuthStore } from '../files/checkAuthFile';
-import logo from './logoimg/sam.jpg';
+import defaultimg from './logoimg/default-avatar.png';
 import { LogOut } from 'lucide-react';
 
 function Profile() {
@@ -34,7 +34,7 @@ function Profile() {
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <img
-                src={selectedimg||isAuth.profileimage || logo}
+                src={selectedimg||isAuth.profileimage || defaultimg}
                 alt="Profile"
                 className="size-32 rounded-full object-cover border-4 "
               />

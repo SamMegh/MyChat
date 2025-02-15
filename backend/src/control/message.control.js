@@ -3,7 +3,7 @@ import Message from "../model/message.model.js";
 
 export const getusers = async (req, res) => {
      try {
-        let loginuser= res.user._id;
+        let loginuser= req.user._id;
            let users = await User.find({ _id: { $ne: loginuser } }).select('-password');
            res.status(200).json(users);
      } catch (error) {
