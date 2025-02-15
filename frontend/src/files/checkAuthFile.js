@@ -7,6 +7,7 @@ export const checkAuthStore = create((set) => ({
     isLogin:false,
     isUpdateprfile:false,
     ischeckauth:false,
+    onlineUsers:[],
 
     checkauth: async () => {
         set({isCheckauth:true});

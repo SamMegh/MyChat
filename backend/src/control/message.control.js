@@ -1,5 +1,6 @@
 import User from "../model/user.model.js";
 import Message from "../model/message.model.js";
+import mongoose from "mongoose";
 
 export const getusers = async (req, res) => {
      try {
@@ -15,7 +16,7 @@ export const getusers = async (req, res) => {
 export const getmessages = async (req, res) => {
     try {
         let {id:receiverid} = req.params;
-        let loginuser= res.user._id;
+        let loginuser= req.user._id;
         let messages= await Message.find({
             $or:[
                 {
@@ -37,16 +38,16 @@ export const getmessages = async (req, res) => {
 export const sendmessage = async (req, res) => {
     try {
         let {id:receiverid} = req.params;
-        let loginuser= res.user._id;
+        let senderid= req.user._id;
         let {message, image} = req.body;
         let imgurl;
         if(image){
             const resimage = await cloudinary.uploader.upload(image);
-            imgurl: resimage.secure_url;
+            imgurl= resimage.secure_url;
         }
         let newmessage = new Message({
-            sender:loginuser,
-            receiver:receiverid,
+            senderid,
+            receiverid,
             message,
             image:imgurl
         });

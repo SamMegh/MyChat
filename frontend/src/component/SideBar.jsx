@@ -3,9 +3,10 @@ import { Users } from 'lucide-react';
 import defaultimg from '../pages/logoimg/default-avatar.png';
 import { useChatStore } from '../files/useChatStore';
 import Sideskelton  from '../skelton/Sideskelton';
+import { checkAuthStore } from '../files/checkAuthFile';
 function SideBar() {
-    const { getUsers, users, selectedUser, isMessageLoading, isUsersLoading , setSelectedUser} = useChatStore();
-
+    const { getUsers, users, selectedUser, isUsersLoading , setSelectedUser} = useChatStore();
+    const { onlineUsers } = checkAuthStore();
     useEffect(()=>{
         getUsers();
     },[getUsers]);
@@ -26,7 +27,8 @@ function SideBar() {
         {users.map((user) => (
           <button
             key={user._id}
-            onClick={() => setSelectedUser(user)}
+            onClick={() => setSelectedUser(user
+            )}
             className={`
               w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors
@@ -39,7 +41,7 @@ function SideBar() {
                 alt={user.name}
                 className="size-12 object-cover rounded-full"
               />
-              {users.includes(user._id) && (
+              {onlineUsers.includes(user._id) && (
                 <span
                   className="absolute bottom-0 right-0 size-3 bg-green-500 
                   rounded-full ring-2 ring-zinc-900"
@@ -51,7 +53,7 @@ function SideBar() {
             <div className="hidden lg:block text-left min-w-0">
               <div className="font-medium truncate">{user.name}</div>
               <div className="text-sm text-zinc-400">
-                {users.includes(user._id) ? "Online" : "Offline"}
+                {onlineUsers.includes(user._id) ? "Online" : "Offline"}
               </div>
             </div>
           </button>

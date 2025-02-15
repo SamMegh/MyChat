@@ -11,6 +11,7 @@ dotenv.config();
 const Port= process.env.Port;
 app.use(express.json());
 app.use(cookie()); 
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
