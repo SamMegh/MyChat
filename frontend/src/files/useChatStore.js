@@ -5,7 +5,7 @@ import { sendmessage } from '../../../backend/src/control/message.control.js';
 // import { useAuthStore } from "./useAuthStore";
 export const useChatStore=create((set,get)=>(
     {
-        message:[],
+        messages:[],
         users:[],
         selectedUser: null,
         isUsersLoading:false,
@@ -28,7 +28,7 @@ export const useChatStore=create((set,get)=>(
             set({isMessageLoading:true})
             try {
                 const res= await Instance.get(`/message/${userid}`)
-                set({message:res.data});
+                set({messages:res.data});
             } catch (error) {
                 toast.error(error.response.data.message)
             }finally{
@@ -40,7 +40,7 @@ export const useChatStore=create((set,get)=>(
             const {selectedUser, message}=get();
         try {
             const res=await Instance.post(`/message/send/${selectedUser._id}`,messagedata);
-            set({message:[...message,res.data]})
+            set({messages:[...messages,res.data]})
         } catch (error) {
             
         }

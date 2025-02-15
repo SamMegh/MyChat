@@ -20,10 +20,10 @@ export const getmessages = async (req, res) => {
         let messages= await Message.find({
             $or:[
                 {
-                    sender:loginuser,receiver:receiverid
+                    senderid:loginuser,receiverid:receiverid
                 },
                 {
-                    sender:receiverid,receiver:loginuser
+                    senderid:receiverid,receiverid:loginuser
                 }
             ]
         });
