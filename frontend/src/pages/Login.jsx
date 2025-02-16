@@ -17,7 +17,6 @@ function Login() {
     function handleChange(e) {
       e.preventDefault();
       login(formData);
-      console.log(formData);
     }
   return (
     <div className="max-h-screen ">

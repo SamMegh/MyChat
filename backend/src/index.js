@@ -8,8 +8,6 @@ import authRoutes from "./route/auth.routes.js";
 import messageRoutes from "./route/message.routes.js";
 import { app , server} from './lib/socketio.lib.js';
 
-app
-
 dotenv.config();
 const Port= process.env.Port;
 app.use(express.json());

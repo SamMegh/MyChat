@@ -1,19 +1,24 @@
 import {create} from 'zustand';
 import Instance from '../lib/axios';
 import toast from 'react-hot-toast';
-export const checkAuthStore = create((set) => ({
+import { io } from 'socket.io-client';
+
+const url="http://localhost:8081"
+export const checkAuthStore = create((set,get) => ({
     isAuth: null,
     isSignup:false,
     isLogin:false,
     isUpdateprfile:false,
     ischeckauth:false,
     onlineUsers:[],
+socket:null,
 
     checkauth: async () => {
         set({isCheckauth:true});
         try {
             const res = await Instance.get('/auth/check');
             set ({isAuth: res.data});
+            get().socketConnect();
         } catch (error) {
             set({isAuth:false});
         }
@@ -30,6 +35,7 @@ export const checkAuthStore = create((set) => ({
             if(isAuth) {
                 toast.success('Signup Success');
             }
+            get().socketConnect();
         } catch (error) {
             toast.error(error.response.data.message);
         }finally {
@@ -40,6 +46,7 @@ export const checkAuthStore = create((set) => ({
     logout: async () => {
         try {
             const res = await Instance.get('/auth/logout');
+            get().socketDisconnect();
             set({isAuth: false});
             if(!isAuth){
                 toast.success(res.data.message);
@@ -54,11 +61,10 @@ export const checkAuthStore = create((set) => ({
         try {
             const res= await Instance.post('/auth/login', data);
             set ({isAuth: res.data});
-            if(isAuth) {
-                toast.success('Login Success');
-            }
+            toast.success('Login Success');
+            get().socketConnect();
         } catch (error) {
-        toast.error(error.response.data.message);
+        toast.error(error.response?.data?.message);
         } finally {
             set({isLogin:false});
         }
@@ -77,5 +83,15 @@ export const checkAuthStore = create((set) => ({
         }finally {
             set({isUpdateprfile:false});
         }
+    },
+    socketConnect:()=>{
+        const{isAuth}=get()
+        if(!isAuth||get().socket?.connected)return;
+        const socket=io(url)
+        socket.connect()
+        set({socket:socket})
+    },
+    socketDisconnect:async()=>{
+        if(get().socket?.connected) get().socket.disconnect();
     }
 }));
