@@ -87,8 +87,15 @@ socket:null,
     socketConnect:()=>{
         const{isAuth}=get()
         if(!isAuth||get().socket?.connected)return;
-        const socket=io(url)
+        const socket=io(url,{
+            query:{
+                userId:isAuth._id,
+            },
+        })
         socket.connect()
+        socket.on("onelineusers",(usersid)=>{
+            set({onlineUsers :usersid})
+        })
         set({socket:socket})
     },
     socketDisconnect:async()=>{

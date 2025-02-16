@@ -1,6 +1,6 @@
 import User from "../model/user.model.js";
 import Message from "../model/message.model.js";
-import mongoose from "mongoose";
+import { getReceiverSocketId, io } from "../lib/socketio.lib.js";
 
 export const getusers = async (req, res) => {
      try {
@@ -52,8 +52,7 @@ export const sendmessage = async (req, res) => {
             image:imgurl
         });
         await newmessage.save();
-
-// todo for realtime functionality
+}
 
         res.status(200).json(newmessage);
     } catch (error) {

@@ -20,7 +20,6 @@ if(isCheckauth&& !isAuth)return(
     <Loader className="size-10 animate-spin"/>
     </div>
 )
-
   return (
     <>
     <div>
