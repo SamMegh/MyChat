@@ -12,13 +12,17 @@ const ChatContainer = () => {
     getMessages,
     isMessagesLoading,
     selectedUser,
+    setToMessage,
+    unSetToMessage
   } = useChatStore();
   const { isAuth } = checkAuthStore();
   const messageEndRef = useRef(null);
 
   useEffect(() => {
     getMessages(selectedUser._id);
-  }, [selectedUser._id, getMessages]);
+    setToMessage();
+    return  ()=>unSetToMessage();
+  }, [selectedUser._id, getMessages,setToMessage,unSetToMessage]);
 
   useEffect(() => {
     if (messageEndRef.current && messages) {

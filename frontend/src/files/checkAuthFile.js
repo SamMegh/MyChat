@@ -84,6 +84,7 @@ socket:null,
             set({isUpdateprfile:false});
         }
     },
+
     socketConnect:()=>{
         const{isAuth}=get()
         if(!isAuth||get().socket?.connected)return;
@@ -98,6 +99,7 @@ socket:null,
         })
         set({socket:socket})
     },
+    
     socketDisconnect:async()=>{
         if(get().socket?.connected) get().socket.disconnect();
     }

@@ -52,6 +52,10 @@ export const sendmessage = async (req, res) => {
             image:imgurl
         });
         await newmessage.save();
+
+const receiverSocketid=getReceiverSocketId(receiverid);
+if(receiverSocketid){
+    io.to(receiverSocketid).emit("newone",newmessage)
 }
 
         res.status(200).json(newmessage);
