@@ -15,9 +15,11 @@ export function getReceiverSocketId(userId) {
     return userSocketMap[userId];
   }
 const userSocketMap={};
+
 io.on("connection",(socket)=>{
     const userId=socket.handshake.query.userId;
-    if(userId)userSocketMap[userId]=socket.id;
+    if(userId)userSocketMap[userId]=socket.id;    
+
     // send this online user list to everyone
     io.emit("onelineusers",Object.keys(userSocketMap)); 
     socket.on("disconnect",()=>{

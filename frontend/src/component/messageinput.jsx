@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useChatStore } from "../files/useChatStore";
 
 const Messageinput = () => {
-  const [text, setText] = useState("");
+  const [message, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
@@ -30,11 +30,11 @@ const Messageinput = () => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (!text.trim() && !imagePreview) return;
+    if (!message.trim() && !imagePreview) return;
 
     try {
       await sendMessage({
-        message: text.trim(),
+        message: message.trim(),
         image: imagePreview,
       });
 
@@ -75,7 +75,7 @@ const Messageinput = () => {
             type="text"
             className="w-full input input-bordered rounded-lg input-sm sm:input-md"
             placeholder="Type a message..."
-            value={text}
+            value={message}
             onChange={(e) => setText(e.target.value)}
           />
           <input
@@ -98,7 +98,7 @@ const Messageinput = () => {
         <button
           type="submit"
           className="btn btn-sm btn-circle"
-          disabled={!text.trim() && !imagePreview}
+          disabled={!message.trim() && !imagePreview}
         >
           <Send size={22} />
         </button>

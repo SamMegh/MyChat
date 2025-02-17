@@ -38,7 +38,7 @@ export const useChatStore=create((set,get)=>(
         },
 
         sendMessage: async(messagedata)=>{
-            const {selectedUser, message}=get();
+            const {selectedUser, messages}=get();
         try {
             const res=await Instance.post(`/message/send/${selectedUser._id}`,messagedata);
             set({messages:[...messages,res.data]})
