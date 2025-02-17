@@ -39,7 +39,8 @@ function Signup() {
   }
   const handleChange = (e) => {
     e.preventDefault();
-    if(!validator())return;
+    let res=validator();
+    if(res==="false")return;
     signup(formData);
   }
   return (
