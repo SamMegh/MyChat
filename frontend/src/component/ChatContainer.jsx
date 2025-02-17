@@ -17,7 +17,6 @@ const ChatContainer = () => {
   } = useChatStore();
   const { isAuth } = checkAuthStore();
   const messageEndRef = useRef(null);
-
   useEffect(() => {
     getMessages(selectedUser._id);
     setToMessage();
@@ -33,9 +32,9 @@ const ChatContainer = () => {
   if (isMessagesLoading) {
     return (
       <div className="flex-1 flex flex-col overflow-auto">
-        <ChatHeader />
+        <Chatheader />
         <MessageSkeleton />
-        <MessageInput />
+        <Messageinput />
       </div>
     );
   }

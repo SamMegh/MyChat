@@ -3,7 +3,7 @@ import Instance from '../lib/axios';
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
 
-const url="http://localhost:8081"
+const url=import.meta.env.MODE==="development"?"http://localhost:8081":"/";
 export const checkAuthStore = create((set,get) => ({
     isAuth: null,
     isSignup:false,
@@ -47,12 +47,12 @@ socket:null,
         try {
             const res = await Instance.get('/auth/logout');
             get().socketDisconnect();
-            set({isAuth: false});
+            set({isAuth: null});
             if(!isAuth){
                 toast.success(res.data.message);
             }
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message);
         }
     },
 
