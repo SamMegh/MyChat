@@ -19,7 +19,7 @@ function Login() {
       login(formData);
     }
   return (
-    <div className="max-h-screen ">
+    <div className="h-[93vh] max-h-screen ">
     {/* left side */}
     <div className="flex flex-col justify-center items-center p-6 sm:p-12">
       <div className="w-full max-w-md space-y-8">

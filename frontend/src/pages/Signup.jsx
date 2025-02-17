@@ -15,20 +15,35 @@ function Signup() {
   });
   const {isSignup, signup} = checkAuthStore();
   const validator = () => {
-    if(!formData.name.trim()) return toast.error('Name is required');
-    if(!formData.email.trim()) return toast.error('Email is required');
-    if(!/\S+@\S+\.\S+/.test(formData.email)) return toast.error('Email is not valid');
-    if(!formData.password.trim()) return toast.error('Password is required');
-    if(formData.password.length < 6) return toast.error('Password must be at least 6 characters');
+    if(!formData.name.trim()){
+       toast.error('Name is required');
+        return false;
+       }
+    if(!formData.email.trim()){
+      toast.error('Email is required');
+      return false;
+    }
+    if(!/\S+@\S+\.\S+/.test(formData.email)){
+      toast.error('Email is not valid');
+      return false;
+    }
+    if(!formData.password.trim()){
+      toast.error('Password is required');
+      return false;
+    }
+    if(formData.password.length < 6){
+      toast.error('Password must be at least 6 characters');
+      return false;
+    }
 
   }
   const handleChange = (e) => {
     e.preventDefault();
-    validator();
+    if(!validator())return;
     signup(formData);
   }
   return (
-    <div className="max-h-screen ">
+    <div className="h-[93vh] max-h-screen ">
     {/* left side */}
     <div className="flex flex-col justify-center items-center p-6 sm:p-12">
       <div className="w-full max-w-md space-y-8">

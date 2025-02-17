@@ -46,7 +46,7 @@ const ChatContainer = () => {
         {messages.map((message) => (
           <div
             key={message._id}
-            className={`chat ${message.senderid === isAuth._id ? "chat-end" : "chat-start"}`}
+            className={`chat ${message.senderid === isAuth._id ? "chat-end " : "chat-start"}`}
             ref={messageEndRef}
           >
             <div className=" chat-image avatar">
@@ -66,7 +66,7 @@ const ChatContainer = () => {
                 {/* time here */}
               </time>
             </div>
-            <div className="chat-bubble flex flex-col">
+            <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ?" bg-primary text-primary-content":""}`}>
               {message.image && (
                 <img
                   src={message.image}

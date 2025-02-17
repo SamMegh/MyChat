@@ -7,14 +7,17 @@ import Login from './pages/Login'
 import Setting from './pages/Setting'
 import Profile from './pages/Profile'
 import {checkAuthStore} from './files/checkAuthFile'
+import {usedtheme} from "./files/usedtheam"
 import { useEffect } from 'react'
 import { Loader } from 'lucide-react'
 import { Toaster} from "react-hot-toast"
 function App() {
   const {isAuth, checkauth, isCheckauth} = checkAuthStore();
+  const {theme}=usedtheme();
   useEffect(() => {
     checkauth();
   }, [checkauth]);
+
 if(isCheckauth&& !isAuth)return(
   <div className='flex justify-center items-center h-screen'>
     <Loader className="size-10 animate-spin"/>
@@ -22,7 +25,7 @@ if(isCheckauth&& !isAuth)return(
 )
   return (
     <>
-    <div>
+    <div data-theme={theme}>
        <Navbar/>
 <Routes>
   <Route path="/" element={isAuth?<Home />:<Navigate to="/login"/>} />
