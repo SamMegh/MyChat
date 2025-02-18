@@ -1,4 +1,4 @@
-import { useEffect,useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useChatStore } from "../files/useChatStore";
 import MessageSkeleton from "../skelton/MessageSkeleton";
 import Chatheader from "./Chatheader";
@@ -7,21 +7,14 @@ import { checkAuthStore } from "../files/checkAuthFile";
 import defaultimg from '../pages/logoimg/default-avatar.png';
 
 const ChatContainer = () => {
-  const {
-    messages,
-    getMessages,
-    isMessagesLoading,
-    selectedUser,
-    setToMessage,
-    unSetToMessage
-  } = useChatStore();
+  const { messages, getMessages, isMessagesLoading, selectedUser, setToMessage, unSetToMessage } = useChatStore();
   const { isAuth } = checkAuthStore();
   const messageEndRef = useRef(null);
   useEffect(() => {
     getMessages(selectedUser._id);
     setToMessage();
-    return  ()=>unSetToMessage();
-  }, [selectedUser._id, getMessages,setToMessage,unSetToMessage]);
+    return () => unSetToMessage();
+  }, [selectedUser._id, getMessages, setToMessage, unSetToMessage]);
 
   useEffect(() => {
     if (messageEndRef.current && messages) {
@@ -66,7 +59,7 @@ const ChatContainer = () => {
                 {/* time here */}
               </time>
             </div>
-            <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ?" bg-primary text-primary-content":""}`}>
+            <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}>
               {message.image && (
                 <img
                   src={message.image}
