@@ -7,7 +7,7 @@ import { checkAuthStore } from "../files/checkAuthFile";
 import defaultimg from '../pages/logoimg/default-avatar.png';
 
 const ChatContainer = () => {
-  const { messages, getMessages, isMessagesLoading, selectedUser, setToMessage, unSetToMessage } = useChatStore();
+  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage } = useChatStore();
   const { isAuth } = checkAuthStore();
   const messageEndRef = useRef(null);
   useEffect(() => {
@@ -21,8 +21,7 @@ const ChatContainer = () => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-  if (isMessagesLoading)
-    return (
+  if (isMessageLoading)return (
       <div className="flex flex-1 flex-col overflow-auto">
         <Chatheader />
         <MessageSkeleton />
