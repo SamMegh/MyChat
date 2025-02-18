@@ -13,7 +13,7 @@ function SideBar() {
   if (isUsersLoading) return <Sideskelton />;
 
   return (
-    <aside className={`h-full w-[100vw] sm:w-fit border-r border-base-300 flex flex-col transition-all duration-200 ${selectedUser?"hidden":"" }`}>
+    <aside className={`h-full w-[100vw] sm:w-68 border-r border-base-300 flex flex-col transition-all duration-200 ${selectedUser?"hidden sm:flex":"" }`}>
       <div className='border-b border-base-300 w-full p-5'>
         <div className='flex items-center gap-3'>
           <Users className='size-6' />
