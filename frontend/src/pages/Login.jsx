@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { checkAuthStore } from '../files/checkAuthFile';
 import { Eye, EyeOff, FunctionSquare, Loader2, Lock, Mail, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import toast from 'react-hot-toast';
 import logo from './logoimg/sam.jpg';
 
 

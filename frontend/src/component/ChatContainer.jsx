@@ -21,7 +21,7 @@ const ChatContainer = () => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-  if (isMessagesLoading) {
+  if (isMessagesLoading)
     return (
       <div className="flex flex-1 flex-col overflow-auto">
         <Chatheader />
@@ -29,7 +29,6 @@ const ChatContainer = () => {
         <Messageinput />
       </div>
     );
-  }
 
   return (
     <div className="flex-1 flex flex-col overflow-auto">
