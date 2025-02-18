@@ -7,7 +7,7 @@ import { checkAuthStore } from "../files/checkAuthFile";
 import defaultimg from '../pages/logoimg/default-avatar.png';
 
 const ChatContainer = () => {
-  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage } = useChatStore();
+  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage ,isImage} = useChatStore();
   const { isAuth } = checkAuthStore();
   const messageEndRef = useRef(null);
   useEffect(() => {
@@ -32,7 +32,7 @@ const ChatContainer = () => {
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <Chatheader />
-
+      
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
@@ -67,8 +67,14 @@ const ChatContainer = () => {
               )}
               {message.message && <p>{message.message}</p>}
             </div>
+            
           </div>
         ))}
+        {
+              isImage&&<>
+              <div className="skeleton h-16 w-[200px] float-right" />
+              </>
+            }
       </div>
 
       <Messageinput />

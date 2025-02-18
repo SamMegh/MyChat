@@ -10,6 +10,8 @@ export const useChatStore=create((set,get)=>(
         selectedUser: null,
         isUsersLoading:false,
         isMessageLoading:false,
+        isImage:false,
+
         getUsers:async()=>{
             set({isUsersLoading:true})
             try {
@@ -30,8 +32,7 @@ export const useChatStore=create((set,get)=>(
                 const res= await Instance.get(`/message/${userid}`)
                 set({messages:res.data});
             } catch (error) {
-                // toast.error(error.response.data.message)
-                 console.log(error)
+                toast.error(error.response.data.message)
             }finally{
                 set({isMessageLoading:false})
             }
@@ -39,11 +40,16 @@ export const useChatStore=create((set,get)=>(
 
         sendMessage: async(messagedata)=>{
             const {selectedUser, messages}=get();
+            if(messagedata.image){
+                set({isImage:true});
+            }
         try {
             const res=await Instance.post(`/message/send/${selectedUser._id}`,messagedata);
-            set({messages:[...messages,res.data]})
+            set({messages:[...messages,res.data],isImage:false})
         } catch (error) {
-            
+            toast.error(error)
+        }finally{
+            set({isImage:false})
         }
         },
 

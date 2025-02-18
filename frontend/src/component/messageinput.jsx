@@ -31,16 +31,18 @@ const Messageinput = () => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!message.trim() && !imagePreview) return;
+const msg= message.trim();
+const img= imagePreview
+// Clear form
+setText("");
+setImagePreview(null);
 
     try {
       await sendMessage({
-        message: message.trim(),
-        image: imagePreview,
+        message:msg,
+        image:img,
       });
 
-      // Clear form
-      setText("");
-      setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (error) {
       console.error("Failed to send message:", error);
