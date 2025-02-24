@@ -11,7 +11,7 @@ export const useChatStore=create((set,get)=>(
         isUsersLoading:false,
         isMessageLoading:false,
         isImage:false,
-
+        deletedChat:[],
         getUsers:async()=>{
             set({isUsersLoading:true})
             try {

@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState } from 'react';
-
-function ContextMenu() {
+import { useChatStore } from '../files/useChatStore';
+function ContextMenu({showMenu}) {
     const list=['Reply','Delete'];
+    const [deletedChat]= useChatStore();    
   return (
     <div>
         <div className="w-fit bg-base-300 rounded-xl z-2 p-4 px-7 flex flex-col gap-2 cursor-default">

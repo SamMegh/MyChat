@@ -40,7 +40,6 @@ const ChatContainer = () => {
   if (isMessageLoading)
     return (
       <div className="flex flex-1 flex-col overflow-auto">
-        <Chatheader />
         <MessageSkeleton />
         <Messageinput />
       </div>
@@ -48,7 +47,6 @@ const ChatContainer = () => {
 
   return (
     <div className="flex-1 flex flex-col overflow-auto">
-      <Chatheader />
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
@@ -102,7 +100,7 @@ const ChatContainer = () => {
             className="absolute duration-100 rounded-md z-50"
             style={{ top: menuPosition.y, left: menuPosition.x }}
           >
-            <ContextMenu />
+            <ContextMenu showMenu={showMenu}/>
           </div>
         )}
       </div>
