@@ -13,6 +13,7 @@ const ChatContainer = () => {
   const [showMenu, setShowMenu] = useState(null);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const messageEndRef = useRef(null);
+
   useEffect(() => {
     getMessages(selectedUser._id);
     setToMessage();
@@ -24,7 +25,20 @@ const ChatContainer = () => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-  if (isMessageLoading)return (
+
+  // Close context menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showMenu) setShowMenu(null);
+    };
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [showMenu]);
+
+  if (isMessageLoading)
+    return (
       <div className="flex flex-1 flex-col overflow-auto">
         <Chatheader />
         <MessageSkeleton />
@@ -40,15 +54,15 @@ const ChatContainer = () => {
         {messages.map((message) => (
           <div
             key={message._id}
-            className={`chat ${message.senderid === isAuth._id ? "chat-end " : "chat-start"}`}
+            className={`chat ${message.senderid === isAuth._id ? "chat-end" : "chat-start"}`}
             ref={messageEndRef}
-            onContextMenu={(e)=>{
+            onContextMenu={(e) => {
               e.preventDefault();
-              setMenuPosition({x:e.clientX+4,y:e.clientY+4});
+              setMenuPosition({ x: e.clientX + 4, y: e.clientY + 4 });
               setShowMenu(message._id);
             }}
           >
-            <div className=" chat-image avatar">
+            <div className="chat-image avatar">
               <div className="size-10 rounded-full border">
                 <img
                   src={
@@ -65,7 +79,7 @@ const ChatContainer = () => {
                 {/* time here */}
               </time>
             </div>
-            <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}>
+            <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? "bg-primary text-primary-content" : ""}`}>
               {message.image && (
                 <img
                   src={message.image}
@@ -75,27 +89,27 @@ const ChatContainer = () => {
               )}
               {message.message && <p>{message.message}</p>}
             </div>
-            
           </div>
         ))}
-        {isImage&&<>
-              <div className="skeleton h-16 w-[200px] float-right" />
-              </>
-            }
-        
-          <div className={`${showMenu?"absolute duration-100":"hidden"}`} style={{top:menuPosition.y,left:menuPosition.x}}>
-            <ContextMenu/>
-            </div>
-            
-{
-  window.addEventListener('click',()=>{
-setShowMenu(null)
-  })
-}
+
+        {isImage && (
+          <div className="skeleton h-16 w-[200px] float-right" />
+        )}
+
+        {/* Context Menu */}
+        {showMenu && (
+          <div
+            className="absolute duration-100 rounded-md z-50"
+            style={{ top: menuPosition.y, left: menuPosition.x }}
+          >
+            <ContextMenu />
+          </div>
+        )}
       </div>
 
       <Messageinput />
     </div>
   );
 };
+
 export default ChatContainer;
