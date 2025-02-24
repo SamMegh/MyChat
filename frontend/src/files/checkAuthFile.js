@@ -36,8 +36,8 @@ socket:null,
                 toast.success('Signup Success');
             }
             get().socketConnect();
-        } catch (error) {
-            toast.error(error.response.data.message);
+        } catch (error) { const errorMessage = error.response?.data?.message || error.message || "Something went wrong!";
+            toast.error(errorMessage);
         }finally {
             set({isSignup:false});
         }
@@ -52,7 +52,8 @@ socket:null,
                 toast.success(res.data.message);
             }
         } catch (error) {
-            toast.error(error.response?.data?.message);
+             const errorMessage = error.response?.data?.message || error.message || "Something went wrong!";
+    toast.error(errorMessage);
         }
     },
 
@@ -64,7 +65,8 @@ socket:null,
             toast.success('Login Success');
             get().socketConnect();
         } catch (error) {
-        toast.error(error.response?.data?.message);
+         const errorMessage = error.response?.data?.message || error.message || "Something went wrong!";
+    toast.error(errorMessage);
         } finally {
             set({isLogin:false});
         }

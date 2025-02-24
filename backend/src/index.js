@@ -16,7 +16,7 @@ const __dirname=path.resolve();
 app.use(cookie()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: process.env.originName,
   credentials: true
 }));
 

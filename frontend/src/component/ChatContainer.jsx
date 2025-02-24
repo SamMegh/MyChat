@@ -1,14 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChatStore } from "../files/useChatStore";
 import MessageSkeleton from "../skelton/MessageSkeleton";
 import Chatheader from "./Chatheader";
 import Messageinput from "./messageinput";
 import { checkAuthStore } from "../files/checkAuthFile";
 import defaultimg from '../pages/logoimg/default-avatar.png';
+import ContextMenu from "./ContextMenu";
 
 const ChatContainer = () => {
   const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage ,isImage} = useChatStore();
   const { isAuth } = checkAuthStore();
+  const [showMenu, setShowMenu] = useState(null);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const messageEndRef = useRef(null);
   useEffect(() => {
     getMessages(selectedUser._id);
@@ -39,6 +42,11 @@ const ChatContainer = () => {
             key={message._id}
             className={`chat ${message.senderid === isAuth._id ? "chat-end " : "chat-start"}`}
             ref={messageEndRef}
+            onContextMenu={(e)=>{
+              e.preventDefault();
+              setMenuPosition({x:e.clientX+4,y:e.clientY+4});
+              setShowMenu(message._id);
+            }}
           >
             <div className=" chat-image avatar">
               <div className="size-10 rounded-full border">
@@ -70,11 +78,20 @@ const ChatContainer = () => {
             
           </div>
         ))}
-        {
-              isImage&&<>
+        {isImage&&<>
               <div className="skeleton h-16 w-[200px] float-right" />
               </>
             }
+        
+          <div className={`${showMenu?"absolute duration-100":"hidden"}`} style={{top:menuPosition.y,left:menuPosition.x}}>
+            <ContextMenu/>
+            </div>
+            
+{
+  window.addEventListener('click',()=>{
+setShowMenu(null)
+  })
+}
       </div>
 
       <Messageinput />
