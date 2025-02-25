@@ -42,11 +42,7 @@ const ChatContainer = () => {
             key={message._id}
             className={`chat ${message.senderid === isAuth._id ? "chat-end " : "chat-start"}`}
             ref={messageEndRef}
-            onContextMenu={(e)=>{
-              e.preventDefault();
-              setMenuPosition({x:e.clientX+4,y:e.clientY+4});
-              setShowMenu(message._id);
-            }}
+            
           >
             <div className=" chat-image avatar">
               <div className="size-10 rounded-full border">
@@ -65,7 +61,12 @@ const ChatContainer = () => {
                 {/* time here */}
               </time>
             </div>
-            <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}>
+            <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}
+            onContextMenu={(e)=>{
+              e.preventDefault();
+              setMenuPosition({x:e.clientX+4,y:e.clientY+4});
+              setShowMenu(message._id);
+            }}>
               {message.image && (
                 <img
                   src={message.image}
