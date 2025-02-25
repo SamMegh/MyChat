@@ -55,7 +55,9 @@ const ChatContainer = () => {
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message, index) => {
-          
+          const prevMessage = messages[index - 1]; // Get previous message
+          const prevDate = prevMessage ? showDate(prevMessage.createdAt) : null;
+          const curDate = showDate(message.createdAt);
           return (
             <div key={index}>
               {index === 0 || prevDate != curDate &&
