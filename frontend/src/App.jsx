@@ -1,6 +1,7 @@
 import './App.css'
 import {Routes, Route, Navigate} from 'react-router-dom'
 import Navbar from './component/Navbar'
+import Test from './component/Test'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
@@ -32,6 +33,7 @@ if(isCheckauth&& !isAuth)return(
   <Route path="/signup" element={!isAuth?<Signup />: <Navigate to="/"/>} />
   <Route path="/login" element={!isAuth?<Login />:<Navigate to="/"/>} />
   <Route path="/setting" element={<Setting />} />
+  <Route path="/test" element={<Test />} />
   <Route path="/profile" element={isAuth?<Profile />:<Navigate to="/login"/>} />
 </Routes>
     </div>
