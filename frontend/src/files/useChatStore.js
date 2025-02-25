@@ -56,6 +56,7 @@ export const useChatStore=create((set,get)=>(
         setSelectedUser:(selecteduserid)=>{
             set({selectedUser:selecteduserid})
         },
+
         setToMessage:()=>{
             const {selectedUser}=get()
             if(!selectedUser)return;
@@ -66,6 +67,7 @@ export const useChatStore=create((set,get)=>(
                 set({messages:[...get().messages,data]})
             })
         },
+        
         unSetToMessage:()=>{
             const socket=checkAuthStore.getState().socket
             socket.off("newone");
