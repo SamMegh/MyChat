@@ -45,7 +45,7 @@ const ChatContainer = () => {
     const [year, monthno, day] = date.split("T")[0].split("-").slice(0, 3)
     const monthnoint = parseInt(monthno)
     const monthname = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    const month = monthname[monthnoint]
+    const month = monthname[monthnoint-1]
     const newDate = [day, month, year].join("-")
     return newDate
   }
