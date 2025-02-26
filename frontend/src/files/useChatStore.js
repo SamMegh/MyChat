@@ -2,6 +2,7 @@ import {create} from 'zustand';
 import toast from 'react-hot-toast';
 import Instance from "../lib/axios.js";
 import { checkAuthStore } from './checkAuthFile.js';
+import { Copy, Reply } from 'lucide-react';
 // import { useAuthStore } from "./useAuthStore";
 export const useChatStore=create((set,get)=>(
     {
@@ -11,6 +12,7 @@ export const useChatStore=create((set,get)=>(
         isUsersLoading:false,
         isMessageLoading:false,
         isImage:false,
+        list:['Reply','Delete','Copy'],
         deletedChat:[],
         getUsers:async()=>{
             set({isUsersLoading:true})
@@ -71,7 +73,22 @@ export const useChatStore=create((set,get)=>(
         unSetToMessage:()=>{
             const socket=checkAuthStore.getState().socket
             socket.off("newone");
-        }
+        },
+        
+        copyContaxt:(id)=>{
+            console.log(id)
+            console.log("copy")
+        },
+
+        replyContaxt:(id)=>{
+            console.log(id)
+            console.log("reply")
+        },
+
+        deleteContaxt:(id)=>{
+            console.log(id)
+            console.log("delete")
+        },
 }
 )
 )

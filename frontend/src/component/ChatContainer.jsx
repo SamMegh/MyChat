@@ -8,9 +8,10 @@ import defaultimg from '../pages/logoimg/default-avatar.png';
 import ContextMenu from "./ContextMenu";
 
 const ChatContainer = () => {
-  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage } = useChatStore();
+  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage,list, copyContaxt, replyContaxt, deleteContaxt } = useChatStore();
   const { isAuth } = checkAuthStore();
   const [showMenu, setShowMenu] = useState(null);
+  const [id, setId] = useState(null);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const messageEndRef = useRef(null);
   useEffect(() => {
@@ -49,10 +50,32 @@ const ChatContainer = () => {
     const newDate = [day, month, year].join("-")
     return newDate
   }
-  const handlecontaxtmenu = (id) => {
-    setShowMenu(id)
-    console.log(id)
-  }
+  const handlecontaxtmenu = (operation) => {
+    if (!list.includes(operation)) {
+      setId(operation)
+      return
+    }
+    else{
+      switch (operation) {
+        case "Copy":
+          copyContaxt(id)
+          setId(null)
+          break;
+        case "Reply":
+          replyContaxt(id)
+          setId(null)
+          break;
+        case "Delete":
+          deleteContaxt(id)
+          setId(null)
+          break;
+        default:
+          console.log("operation not found")
+          setId(null)
+      }
+    }
+    
+       }
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <Chatheader />
@@ -99,6 +122,7 @@ const ChatContainer = () => {
                   onContextMenu={(e) => {
                     e.preventDefault();
                     setMenuPosition({ x: (e.clientX + 116)>window.innerWidth?e.clientX-130:e.clientX, y: e.clientY + 4 });
+                    setShowMenu(message._id);
                     handlecontaxtmenu(message._id)
                   }}>
                   {message.image && (
@@ -124,7 +148,7 @@ const ChatContainer = () => {
         }
 
         <div className={`${showMenu ? "absolute duration-100" : "hidden"}`} style={{ top: menuPosition.y, left: menuPosition.x }}>
-          <ContextMenu />
+          <ContextMenu handlecontaxtmenu={handlecontaxtmenu} />
         </div>
 
 
