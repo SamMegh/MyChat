@@ -85,9 +85,14 @@ export const useChatStore=create((set,get)=>(
             console.log("reply")
         },
 
-        deleteContaxt:(id)=>{
-            console.log(id)
-            console.log("delete")
+        deleteContaxt:async(id)=>{
+            const {messagesf}=get();
+            try {
+                const res=await Instance.post(`/message/delete/${id}`)
+                
+            } catch (error) {
+                toast.error(error)
+            }
         },
 }
 )
