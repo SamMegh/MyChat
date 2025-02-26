@@ -49,6 +49,10 @@ const ChatContainer = () => {
     const newDate = [day, month, year].join("-")
     return newDate
   }
+  const handlecontaxtmenu = (id) => {
+    setShowMenu(id)
+    console.log(id)
+  }
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <Chatheader />
@@ -94,8 +98,8 @@ const ChatContainer = () => {
                 <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}
                   onContextMenu={(e) => {
                     e.preventDefault();
-                    setMenuPosition({ x: e.clientX + 4, y: e.clientY + 4 });
-                    setShowMenu(message._id);
+                    setMenuPosition({ x: (e.clientX + 116)>window.innerWidth?e.clientX-130:e.clientX, y: e.clientY + 4 });
+                    handlecontaxtmenu(message._id)
                   }}>
                   {message.image && (
                     <img

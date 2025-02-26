@@ -5,7 +5,7 @@ function ContextMenu() {
     const list=['Reply','Delete'];
   return (
     <div>
-        <div className="w-fit bg-base-300 rounded-xl z-2 p-4 px-7 flex flex-col gap-2 cursor-default">
+        <div className="w-[116px] bg-base-300 rounded-xl z-2 p-4 px-7 flex flex-col gap-2 cursor-default">
         {list.map((item,index)=>(
                     <span 
                     key={index}
