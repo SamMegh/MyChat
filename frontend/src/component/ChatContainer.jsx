@@ -8,7 +8,7 @@ import defaultimg from '../pages/logoimg/default-avatar.png';
 import ContextMenu from "./ContextMenu";
 
 const ChatContainer = () => {
-  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage,list, copyContaxt, replyContaxt, deleteContaxt } = useChatStore();
+  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage,list, copyContaxt, replyContaxt, deleteContaxt,setToDeleteChat } = useChatStore();
   const { isAuth } = checkAuthStore();
   const [showMenu, setShowMenu] = useState(null);
   const [id, setId] = useState(null);
@@ -17,8 +17,9 @@ const ChatContainer = () => {
   useEffect(() => {
     getMessages(selectedUser._id);
     setToMessage();
+    setToDeleteChat();
     return () => unSetToMessage();
-  }, [selectedUser._id, getMessages, setToMessage, unSetToMessage]);
+  }, [selectedUser._id, getMessages, setToMessage, setToDeleteChat, unSetToMessage]);
 
   useEffect(() => {
     if (messageEndRef.current && messages) {
@@ -90,7 +91,7 @@ const ChatContainer = () => {
               {index === 0 || prevDate != curDate &&
                 
                   <div className='rounded-xl bg-primary/90 mx-auto w-fit px-3 left select-none'>
-                    <p className='text-base-100'>
+                    <p className='text-bse-100'>
                       {showDate(message.createdAt)}</p>
                   </div>
               }

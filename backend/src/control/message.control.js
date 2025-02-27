@@ -131,6 +131,12 @@ export const deletemessage = async (req, res) => {
         });
         await deletedMessage.save();
         await Message.deleteOne({ _id: messageid });
+
+        const receiverSocketid = getReceiverSocketId(message.receiverid);
+        if (receiverSocketid) {
+            io.to(receiverSocketid).emit("deletedMSG", message)
+        }
+
         res.status(200).json({ message: "Message deleted" });
 
     } catch (error) {

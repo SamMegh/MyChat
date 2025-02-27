@@ -86,7 +86,6 @@ export const useChatStore=create((set,get)=>(
         },
 
         deleteContaxt:async(id)=>{
-            const {messagesf}=get();
             try {
                 const res=await Instance.post(`/message/delete/${id}`)
                 
@@ -94,6 +93,15 @@ export const useChatStore=create((set,get)=>(
                 toast.error(error)
             }
         },
+        
+        setToDeleteChat:()=>{
+            const {selectedUser}=get();
+            if(!selectedUser)return;
+            const socket=checkAuthStore.getState().socket
+            socket.on("deletedMSG",(data)=>{
+                set({messages:[...get().messages.filter((message)=>message._id!==data._id)],data})
+            })
+        }
 }
 )
 )
