@@ -2,8 +2,6 @@ import {create} from 'zustand';
 import toast from 'react-hot-toast';
 import Instance from "../lib/axios.js";
 import { checkAuthStore } from './checkAuthFile.js';
-import { Copy, Reply } from 'lucide-react';
-// import { useAuthStore } from "./useAuthStore";
 export const useChatStore=create((set,get)=>(
     {
         messages:[],

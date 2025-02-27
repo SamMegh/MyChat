@@ -11,6 +11,7 @@ const ChatContainer = () => {
   const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage,list, copyContaxt, replyContaxt, deleteContaxt,setToDeleteChat } = useChatStore();
   const { isAuth } = checkAuthStore();
   const [showMenu, setShowMenu] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null);
   const [id, setId] = useState(null);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const messageEndRef = useRef(null);
@@ -124,6 +125,7 @@ const ChatContainer = () => {
                     e.preventDefault();
                     setMenuPosition({ x: (e.clientX + 116)>window.innerWidth?e.clientX-130:e.clientX, y: e.clientY + 4 });
                     setShowMenu(message._id);
+                    setSelectedMessage(message.createdAt)
                     handlecontaxtmenu(message._id)
                   }}>
                   {message.image && (
@@ -149,7 +151,19 @@ const ChatContainer = () => {
         }
 
         <div className={`${showMenu ? "absolute duration-100" : "hidden"}`} style={{ top: menuPosition.y, left: menuPosition.x }}>
-          <ContextMenu handlecontaxtmenu={handlecontaxtmenu} />
+          <div className="w-[116px] bg-base-300 rounded-xl z-2 p-4 px-7 flex flex-col gap-2 cursor-default">
+        {list.map((item,index)=>(
+                    <span 
+                    key={index}
+                    className={`text-center w-15 `}
+                    onClick={()=>handlecontaxtmenu(item)}
+                    >
+                    {item}
+                    <hr className={`mt-1 border-t-2 transition-all duration-200 ease-in-out`}/>
+                    </span>
+                    
+                ))}
+            </div>
         </div>
 
 
