@@ -134,7 +134,7 @@ export const deletemessage = async (req, res) => {
 
         const receiverSocketid = getReceiverSocketId(message.receiverid);
         if (receiverSocketid) {
-            io.to(receiverSocketid).emit("deletedMSG", message)
+            io.emit("deletedMSG", message)
         }
 
         res.status(200).json({ message: "Message deleted" });
