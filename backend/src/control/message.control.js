@@ -127,7 +127,7 @@ export const deletemessage = async (req, res) => {
             receiverid: message.receiverid,
             message: message.message,
             image: message.image,
-            oldCreatedAt: message.createdAt 
+            beforeDeleteCreatedDate: message.createdAt 
         });
         await deletedMessage.save();
         await Message.deleteOne({ _id: messageid });

@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const deletedMessageSchema = new mongoose.Schema({
+    messageid:{
+type: String,
+        required: true,
+        ref: "Message"
+    },
     senderid: {
         type: String,
         required: true,
@@ -16,7 +21,13 @@ const deletedMessageSchema = new mongoose.Schema({
     },
     image:{
         type:String,
-    },},
+    },
+    beforeDeleteCreatedDate:{
+        type: String,
+        required: true,
+        ref: "User"
+    },
+},
     {
         timestamps: true,
     });
