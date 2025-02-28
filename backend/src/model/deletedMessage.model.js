@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const deletedMessageSchema = new mongoose.Schema({
-    messageid:{
-type: String,
+    messageid: {
+        type: String,
         required: true,
         ref: "Message"
     },
@@ -19,10 +19,13 @@ type: String,
     message: {
         type: String,
     },
-    image:{
-        type:String,
+    image: {
+        type: String,
     },
-    beforeDeleteCreatedDate:{
+    reply: {
+        type: Array,
+    },
+    beforeDeleteCreatedDate: {
         type: String,
         required: true,
         ref: "User"
@@ -32,5 +35,5 @@ type: String,
         timestamps: true,
     });
 
-const DeletedMessage= mongoose.model("DeletedMessage", deletedMessageSchema);
+const DeletedMessage = mongoose.model("DeletedMessage", deletedMessageSchema);
 export default DeletedMessage;

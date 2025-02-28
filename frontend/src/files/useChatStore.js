@@ -13,6 +13,8 @@ export const useChatStore = create((set, get) => (
         list: ['Reply', 'Delete', 'Copy'],
         deletedChat: [],
         opratorMsg: null,
+        toReply: null,
+        setToReply: (data) => set({ toReply: data }),
         getUsers: async () => {
             set({ isUsersLoading: true })
             try {
@@ -51,6 +53,7 @@ export const useChatStore = create((set, get) => (
                 toast.error(error)
             } finally {
                 set({ isImage: false })
+                get().setToReply(null)
             }
         },
 
@@ -76,12 +79,17 @@ export const useChatStore = create((set, get) => (
 
         copyContaxt: (msg) => {
             let textToCopy = msg?.message || "No content to copy";
-
-            window.navigator.clipboard.writeText(textToCopy)
+            window.navigator.clipboard.writeText(textToCopy).then(() => {
+                toast.success("Successfully Copy ")
+            })
+                .catch(() => {
+                    toast.error("Something Went Wrong")
+                })
         },
 
         replyContaxt: (id) => {
             console.log(id)
+            get().setToReply(id)
             console.log("reply")
         },
 
@@ -89,9 +97,10 @@ export const useChatStore = create((set, get) => (
             try {
                 if (!id) return;
                 const res = await Instance.post(`/message/delete/${id}`)
+                toast.success("Successfully Deleted")
 
             } catch (error) {
-                toast.error(error)
+                toast.error("Error While Deleting")
             }
         },
 
