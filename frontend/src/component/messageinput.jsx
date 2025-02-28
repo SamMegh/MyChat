@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Image, Send, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Image, SendHorizontal, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { useChatStore } from "../files/useChatStore";
 import Reply from "./Reply";
@@ -7,6 +7,7 @@ const Messageinput = () => {
   const [message, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
+  const inputRef = useRef(null);
   const { sendMessage, toReply, selectedUser } = useChatStore();
 
   const handleImageChange = (e) => {
@@ -33,15 +34,20 @@ const Messageinput = () => {
     if (!message.trim() && !imagePreview) return;
     const msg = message.trim();
     const img = imagePreview
+    let reply = null
     // Clear form
     setText("");
     setImagePreview(null);
 
     try {
+      if (toReply) {
+        reply = toReply._id
+      }
       await sendMessage({
         message: msg,
         image: img,
-        name: selectedUser.name
+        name: selectedUser.name,
+        reply: reply
       });
 
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -50,6 +56,16 @@ const Messageinput = () => {
     }
   };
 
+  useEffect(() => {
+    const focusInput = () => {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
+    };
+
+    focusInput();
+
+  }, []);
   return (
     <div>
       {toReply && <Reply />}
@@ -78,9 +94,10 @@ const Messageinput = () => {
           <div className="flex-1 flex gap-2">
             <input
               type="text"
-              className="w-full input input-bordered rounded-lg input-sm sm:input-md"
+              className="w-full input input-bordered rounded-lg input-md sm:input-md"
               placeholder="Type a message..."
               value={message}
+              ref={inputRef}
               onChange={(e) => setText(e.target.value)}
             />
             <input
@@ -105,7 +122,7 @@ const Messageinput = () => {
             className="btn btn-sm btn-circle"
             disabled={!message.trim() && !imagePreview}
           >
-            <Send size={22} />
+            <SendHorizontal size={25} />
           </button>
         </form>
       </div>
