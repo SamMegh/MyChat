@@ -12,7 +12,7 @@ export const useChatStore = create((set, get) => (
         isImage: false,
         list: ['Reply', 'Delete', 'Copy'],
         deletedChat: [],
-        id: null,
+        opratorMsg: null,
         getUsers: async () => {
             set({ isUsersLoading: true })
             try {
@@ -74,9 +74,10 @@ export const useChatStore = create((set, get) => (
             socket.off("newone");
         },
 
-        copyContaxt: (id) => {
-            console.log(id)
-            console.log("copy")
+        copyContaxt: (msg) => {
+            let textToCopy = msg?.message || "No content to copy";
+
+            window.navigator.clipboard.writeText(textToCopy)
         },
 
         replyContaxt: (id) => {
@@ -86,6 +87,7 @@ export const useChatStore = create((set, get) => (
 
         deleteContaxt: async (id) => {
             try {
+                if (!id) return;
                 const res = await Instance.post(`/message/delete/${id}`)
 
             } catch (error) {
@@ -103,28 +105,28 @@ export const useChatStore = create((set, get) => (
         },
 
         handlecontaxtmenu: (operation) => {
-            const { list, copyContaxt, replyContaxt, deleteContaxt, id } = get();
+            const { list, copyContaxt, replyContaxt, deleteContaxt, opratorMsg } = get();
             if (!list.includes(operation)) {
-                set({ id: operation })
+                set({ opratorMsg: operation })
                 return
             }
             else {
                 switch (operation) {
                     case "Copy":
-                        copyContaxt(id)
-                        set({ id: null })
+                        copyContaxt(opratorMsg)
+                        set({ opratorMsg: null })
                         break;
                     case "Reply":
-                        replyContaxt(id)
-                        set({ id: null })
+                        replyContaxt(opratorMsg)
+                        set({ opratorMsg: null })
                         break;
                     case "Delete":
-                        deleteContaxt(id)
-                        set({ id: null })
+                        deleteContaxt(opratorMsg._id)
+                        set({ opratorMsg: null })
                         break;
                     default:
                         console.log("operation not found")
-                        set({ id: null })
+                        set({ opratorMsg: null })
                 }
             }
 

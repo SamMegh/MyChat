@@ -61,10 +61,10 @@ const ChatContainer = () => {
           const curDate = showDate(message.createdAt);
           return (
             <div key={index}>
-              {index === 0 || prevDate != curDate &&
+              {index === "0" || prevDate != curDate &&
 
                 <div className='rounded-xl bg-primary/90 mx-auto w-fit px-3 left select-none'>
-                  <p className='text-bse-100'>
+                  <p className='text-base-100'>
                     {showDate(message.createdAt)}</p>
                 </div>
               }
@@ -97,7 +97,7 @@ const ChatContainer = () => {
                     e.preventDefault();
                     setMenuPosition({ x: (e.clientX + 116) > window.innerWidth ? e.clientX - 130 : e.clientX, y: e.clientY + 4 });
                     setShowMenu(message._id);
-                    handlecontaxtmenu(message._id);
+                    handlecontaxtmenu(message);
                   }}>
                   {message.image && (
                     <img
