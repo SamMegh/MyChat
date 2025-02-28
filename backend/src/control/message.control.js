@@ -47,7 +47,7 @@ export const sendmessage = async (req, res) => {
     try {
         let { id: receiverid } = req.params;
         let senderid = req.user._id;
-        let { message, image } = req.body;
+        let { message, image, name } = req.body;
         let imgurl;
         if (image) {
             imgurl = await imagedatabase(image);
@@ -55,6 +55,7 @@ export const sendmessage = async (req, res) => {
         let newmessage = new Message({
             senderid,
             receiverid,
+            name,
             message,
             image: imgurl
         });

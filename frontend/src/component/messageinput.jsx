@@ -7,7 +7,7 @@ const Messageinput = () => {
   const [message, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
-  const { sendMessage, toReply } = useChatStore();
+  const { sendMessage, toReply, selectedUser } = useChatStore();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -41,6 +41,7 @@ const Messageinput = () => {
       await sendMessage({
         message: msg,
         image: img,
+        name: selectedUser.name
       });
 
       if (fileInputRef.current) fileInputRef.current.value = "";
