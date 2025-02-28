@@ -6,9 +6,11 @@ import Messageinput from "./messageinput";
 import { checkAuthStore } from "../files/checkAuthFile";
 import defaultimg from '../pages/logoimg/default-avatar.png';
 import ContextMenu from "./ContextMenu";
+import { otherRequireFilecreate } from "../files/otherRequireFile";
 
 const ChatContainer = () => {
   const { messages, getMessages, setToDeleteChat, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage, handlecontaxtmenu } = useChatStore();
+  const { showDate, showTime } = otherRequireFilecreate();
   const { isAuth } = checkAuthStore();
   const [showMenu, setShowMenu] = useState(null);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
@@ -33,23 +35,9 @@ const ChatContainer = () => {
     </div>
   );
 
-  const showTime = (time) => {
-    const [hr, min] = time.split("T")[1].split(":").slice(0, 2);
-    const hrint = parseInt(hr)
-    const period = (hrint > 12) ? "PM" : "AM"
-    let newTime = [hr, min].join(":")
-    newTime = [newTime, period].join(" ")
-    return newTime
-  }
 
-  const showDate = (date) => {
-    const [year, monthno, day] = date.split("T")[0].split("-").slice(0, 3)
-    const monthnoint = parseInt(monthno)
-    const monthname = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    const month = monthname[monthnoint - 1]
-    const newDate = [day, month, year].join("-")
-    return newDate
-  }
+
+
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <Chatheader />
