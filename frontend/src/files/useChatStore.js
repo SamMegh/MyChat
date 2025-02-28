@@ -88,9 +88,7 @@ export const useChatStore = create((set, get) => (
         },
 
         replyContaxt: (id) => {
-            console.log(id)
             get().setToReply(id)
-            console.log("reply")
         },
 
         deleteContaxt: async (id) => {
