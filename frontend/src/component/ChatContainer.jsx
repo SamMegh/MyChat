@@ -8,11 +8,9 @@ import defaultimg from '../pages/logoimg/default-avatar.png';
 import ContextMenu from "./ContextMenu";
 
 const ChatContainer = () => {
-  const { messages, getMessages, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage,list, copyContaxt, replyContaxt, deleteContaxt,setToDeleteChat } = useChatStore();
+  const { messages, getMessages, setToDeleteChat, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage, handlecontaxtmenu } = useChatStore();
   const { isAuth } = checkAuthStore();
   const [showMenu, setShowMenu] = useState(null);
-  const [selectedMessage, setSelectedMessage] = useState(null);
-  const [id, setId] = useState(null);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const messageEndRef = useRef(null);
   useEffect(() => {
@@ -48,36 +46,10 @@ const ChatContainer = () => {
     const [year, monthno, day] = date.split("T")[0].split("-").slice(0, 3)
     const monthnoint = parseInt(monthno)
     const monthname = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    const month = monthname[monthnoint-1]
+    const month = monthname[monthnoint - 1]
     const newDate = [day, month, year].join("-")
     return newDate
   }
-  const handlecontaxtmenu = (operation) => {
-    if (!list.includes(operation)) {
-      setId(operation)
-      return
-    }
-    else{
-      switch (operation) {
-        case "Copy":
-          copyContaxt(id)
-          setId(null)
-          break;
-        case "Reply":
-          replyContaxt(id)
-          setId(null)
-          break;
-        case "Delete":
-          deleteContaxt(id)
-          setId(null)
-          break;
-        default:
-          console.log("operation not found")
-          setId(null)
-      }
-    }
-    
-       }
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <Chatheader />
@@ -90,11 +62,11 @@ const ChatContainer = () => {
           return (
             <div key={index}>
               {index === 0 || prevDate != curDate &&
-                
-                  <div className='rounded-xl bg-primary/90 mx-auto w-fit px-3 left select-none'>
-                    <p className='text-bse-100'>
-                      {showDate(message.createdAt)}</p>
-                  </div>
+
+                <div className='rounded-xl bg-primary/90 mx-auto w-fit px-3 left select-none'>
+                  <p className='text-bse-100'>
+                    {showDate(message.createdAt)}</p>
+                </div>
               }
               <div
                 key={message._id}
@@ -123,10 +95,9 @@ const ChatContainer = () => {
                 <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}
                   onContextMenu={(e) => {
                     e.preventDefault();
-                    setMenuPosition({ x: (e.clientX + 116)>window.innerWidth?e.clientX-130:e.clientX, y: e.clientY + 4 });
+                    setMenuPosition({ x: (e.clientX + 116) > window.innerWidth ? e.clientX - 130 : e.clientX, y: e.clientY + 4 });
                     setShowMenu(message._id);
-                    setSelectedMessage(message.createdAt)
-                    handlecontaxtmenu(message._id)
+                    handlecontaxtmenu(message._id);
                   }}>
                   {message.image && (
                     <img
@@ -151,7 +122,7 @@ const ChatContainer = () => {
         }
 
         <div className={`${showMenu ? "absolute duration-100" : "hidden"}`} style={{ top: menuPosition.y, left: menuPosition.x }}>
-          <ContextMenu/>
+          <ContextMenu />
         </div>
 
 

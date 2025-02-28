@@ -1,6 +1,9 @@
 import React from 'react'
+import { useChatStore } from '../files/useChatStore';
 
 function ContextMenu() {
+    const { list, handlecontaxtmenu } = useChatStore();
+
     return (
         <div>
             <div className="w-[116px] bg-base-300 rounded-xl z-2 p-4 px-7 flex flex-col gap-2 cursor-default">
