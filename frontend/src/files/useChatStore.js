@@ -14,7 +14,10 @@ export const useChatStore = create((set, get) => (
         deletedChat: [],
         opratorMsg: null,
         toReply: null,
-        setToReply: (data) => set({ toReply: data }),
+        setToReply: (data) => {
+            set({ toReply: null })
+            set({ toReply: data })
+        },
         getUsers: async () => {
             set({ isUsersLoading: true })
             try {
@@ -87,8 +90,9 @@ export const useChatStore = create((set, get) => (
                 })
         },
 
-        replyContaxt: (id) => {
-            get().setToReply(id)
+        replyContaxt: (message) => {
+
+            get().setToReply(message)
         },
 
         deleteContaxt: async (id) => {

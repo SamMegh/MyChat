@@ -7,6 +7,7 @@ import { checkAuthStore } from "../files/checkAuthFile";
 import defaultimg from '../pages/logoimg/default-avatar.png';
 import ContextMenu from "./ContextMenu";
 import { otherRequireFilecreate } from "../files/otherRequireFile";
+import Reply from "./Reply";
 
 const ChatContainer = () => {
   const { messages, getMessages, setToDeleteChat, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage, handlecontaxtmenu } = useChatStore();
@@ -56,6 +57,7 @@ const ChatContainer = () => {
                     {showDate(message.createdAt)}</p>
                 </div>
               }
+
               <div
                 key={message._id}
                 className={`chat ${message.senderid === isAuth._id ? "chat-end " : "chat-start"}`}
@@ -80,7 +82,7 @@ const ChatContainer = () => {
                     {showTime(message.createdAt)}
                   </time>
                 </div>
-                <div className={`chat-bubble flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}
+                <div className={`chat-bubble px-2 flex flex-col ${message.senderid === isAuth._id ? " bg-primary text-primary-content" : ""}`}
                   onContextMenu={(e) => {
                     e.preventDefault();
                     setMenuPosition({ x: (e.clientX + 116) > window.innerWidth ? e.clientX - 130 : e.clientX, y: e.clientY + 4 });
@@ -94,6 +96,12 @@ const ChatContainer = () => {
                       className="sm:max-w-[200px] rounded-md mb-2"
                     />
                   )}
+                  {message.reply && <>
+                    <div className='bg-primary-content/50 w-full rounded-md px-1'>
+                      <p style={{ lineHeight: 1 }} className='text-sm text-primary/80 line-clamp-6'>{message.reply[0].name}</p>
+                      <p className='text-sm truncate w-full '>{message.reply[0].message}</p>
+                    </div>
+                  </>}
                   {message.message && <p>{message.message}</p>}
                 </div>
 
@@ -122,7 +130,7 @@ const ChatContainer = () => {
       </div>
 
       <Messageinput />
-    </div>
+    </div >
   );
 };
 export default ChatContainer;

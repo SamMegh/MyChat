@@ -5,23 +5,23 @@ import defaultimg from './logoimg/default-avatar.png';
 import { LogOut } from 'lucide-react';
 
 function Profile() {
- const {isAuth, isUpdateprfile,updateprofile,logout}=checkAuthStore();
- const [selectedimg, setSelectedImg] = React.useState(null);
+  const { isAuth, isUpdateprfile, updateprofile, logout } = checkAuthStore();
+  const [selectedimg, setSelectedImg] = React.useState(null);
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if(!file) return;
+    if (!file) return;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
       const base64 = reader.result;
       setSelectedImg(base64);
-      await updateprofile({profileimage:base64});
+      await updateprofile({ profileimage: base64 });
     }
 
   };
 
   return (
-    <div className="h-full">
+    <div className="h-[100dvh]">
       <div className="max-w-3xl mx-auto p-4 py-8">
         <div className="bg-base-300 rounded-xl p-6 space-y-5 ">
           <div className="text-center">
@@ -34,7 +34,7 @@ function Profile() {
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <img
-                src={selectedimg||isAuth.profileimage || defaultimg}
+                src={selectedimg || isAuth.profileimage || defaultimg}
                 alt="Profile"
                 className="size-32 rounded-full object-cover border-4 "
               />
@@ -95,10 +95,10 @@ function Profile() {
               </div>
               <div className='w-full flex justify-end'>
 
-              <button onClick={logout} className='btn btn-sm pt-0.5 pr-3 pl-3 pb-0.5 flex justify-center items-center rounded-xl cursor-pointer transition duration-300 bg-[#ff838366] hover:bg-[#ff00007d]'>
-    <LogOut size={18} />
-    <span className='hidden sm:inline'>Logout</span>
-      </button>
+                <button onClick={logout} className='btn btn-sm pt-0.5 pr-3 pl-3 pb-0.5 flex justify-center items-center rounded-xl cursor-pointer transition duration-300 bg-[#ff838366] hover:bg-[#ff00007d]'>
+                  <LogOut size={18} />
+                  <span className='hidden sm:inline'>Logout</span>
+                </button>
               </div>
             </div>
           </div>

@@ -41,7 +41,7 @@ const Messageinput = () => {
 
     try {
       if (toReply) {
-        reply = toReply._id
+        reply = toReply
       }
       await sendMessage({
         message: msg,
