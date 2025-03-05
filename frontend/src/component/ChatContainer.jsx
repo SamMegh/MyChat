@@ -7,8 +7,6 @@ import { checkAuthStore } from "../files/checkAuthFile";
 import defaultimg from '../pages/logoimg/default-avatar.png';
 import ContextMenu from "./ContextMenu";
 import { otherRequireFilecreate } from "../files/otherRequireFile";
-import Reply from "./Reply";
-
 const ChatContainer = () => {
   const { messages, getMessages, setToDeleteChat, isMessageLoading, selectedUser, setToMessage, unSetToMessage, isImage, handlecontaxtmenu } = useChatStore();
   const { showDate, showTime } = otherRequireFilecreate();

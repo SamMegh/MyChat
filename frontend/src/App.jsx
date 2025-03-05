@@ -33,7 +33,6 @@ if(isCheckauth&& !isAuth)return(
   <Route path="/signup" element={!isAuth?<Signup />: <Navigate to="/"/>} />
   <Route path="/login" element={!isAuth?<Login />:<Navigate to="/"/>} />
   <Route path="/setting" element={<Setting />} />
-  <Route path="/test" element={<Test />} />
   <Route path="/profile" element={isAuth?<Profile />:<Navigate to="/login"/>} />
 </Routes>
     </div>
